@@ -14,6 +14,7 @@ const options = {
 	time_24hr: true,
 	defaultDate: new Date(),
 	minuteIncrement: 1,
+   intervalId: null,
 	onClose(selectedDates) {
 	  console.log(selectedDates[0]);
 
@@ -21,26 +22,25 @@ const options = {
 		startBtn.disabled = true;
 		Notiflix.Notify.warning('Please choose a date in the future');
 		return;
-	  };
-	  if (selectedDates[0] > new Date()){
+	  } else {
 		startBtn.disabled = false;
-	  };
 
-	  startBtn.addEventListener('click', timer);
+		startBtn.addEventListener('click', timer);
 
-	function timer () {
-		intervalId = setInterval( () => {
-		const deltaTime = selectedDates[0] - new Date();
-      const timeComponents = convertMs(deltaTime);
-      updateClockFace(timeComponents);
-
-		if (deltaTime < 1000) {
-			clearInterval(intervalId);
-			startBtn.disabled = false;
-		 }}, 1000);
-		}
-	  }
-	};
+		function timer () {
+			this.intervalId = setInterval( () => {
+			const deltaTime = selectedDates[0] - new Date();
+			const timeComponents = convertMs(deltaTime);
+			updateClockFace(timeComponents);
+	
+			if (deltaTime < 1000) {
+				clearInterval(intervalId);
+				startBtn.disabled = false;
+			 }}, 1000);
+			};
+		  }
+	}
+		};
 
 flatpickr(dateChosen, options);
 
