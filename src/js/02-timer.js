@@ -20,36 +20,40 @@ const options = {
 	  if(selectedDates[0] <=  new Date()) {
 		startBtn.disabled = true;
 		Notiflix.Notify.warning('Please choose a date in the future');
-	  } 
+		return;
+	  };
 	  if (selectedDates[0] > new Date()){
 		startBtn.disabled = false;
-		startBtn.addEventListener('click', timer);
+	  };
 
-		function timer () {
+	  startBtn.addEventListener('click', timer);
+
+	function timer () {
 		intervalId = setInterval( () => {
-		let deltaTime = selectedDates[0] - new Date();
+		const deltaTime = selectedDates[0] - new Date();
       const timeComponents = convertMs(deltaTime);
       updateClockFace(timeComponents);
 
 		if (deltaTime < 1000) {
 			clearInterval(intervalId);
 			startBtn.disabled = false;
-		 }
+		 }}, 1000);
 		}
-	, 1000);
-		};
 	  }
-	}
- };
+	};
 
-flatpickr('#datetime-picker', options);
+flatpickr(dateChosen, options);
 
 function updateClockFace ({ days, hours, minutes, seconds }) {
-days.textContent = `${days}`;
+day.textContent = `${days}`;
 hours.textContent = `${hours}`;
 minutes.textContent = `${minutes}`;
 seconds.textContent = `${seconds}`;
-}
+};
+
+function addLeadingZero(value) {
+	return String(value).padStart(2, '0');
+};
 
  function convertMs(ms) {
 	// Number of milliseconds per unit of time
@@ -70,6 +74,3 @@ seconds.textContent = `${seconds}`;
 	return { days, hours, minutes, seconds };
  };
 
-function addLeadingZero(value) {
-	return String(value).padStart(2, '0');
-};
