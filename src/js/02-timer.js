@@ -44,11 +44,11 @@ const options = {
 
 flatpickr(dateChosen, options);
 
-function updateClockFace ({ days, hours, minutes, seconds }) {
-day.textContent = `${days}`;
-hours.textContent = `${hours}`;
-minutes.textContent = `${minutes}`;
-seconds.textContent = `${seconds}`;
+function updateClockFace ({ days:daysValue, hours:hoursValue, minutes:minutesValue, seconds:secondsValue }) {
+day.textContent = `${daysValue}`;
+hours.textContent = `${hoursValue}`;
+minutes.textContent = `${minutesValue}`;
+seconds.textContent = `${secondsValue}`;
 };
 
 function addLeadingZero(value) {
