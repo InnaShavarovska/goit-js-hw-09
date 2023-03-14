@@ -30,7 +30,7 @@ createPromise(i, delayVal).then(({ position, delay }) => {
 
 function createPromise(position, delay) {
 
-return  promise = new Promise((resolve, reject) => {
+return new Promise((resolve, reject) => {
 
       setTimeout( () => {
 
