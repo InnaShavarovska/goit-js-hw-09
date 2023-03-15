@@ -9,12 +9,15 @@ const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
 
+let intervalId = null;
+
+startBtn.disabled = true;
+
 const options = {
 	enableTime: true,
 	time_24hr: true,
 	defaultDate: new Date(),
 	minuteIncrement: 1,
-   intervalId: null,
 	onClose(selectedDates) {
 	  console.log(selectedDates[0]);
 
@@ -28,14 +31,14 @@ const options = {
 		startBtn.addEventListener('click', timer);
 
 		function timer () {
-			this.intervalId = setInterval( () => {
+			intervalId = setInterval( () => {
+         startBtn.disabled = true;
 			const deltaTime = selectedDates[0] - new Date();
 			const timeComponents = convertMs(deltaTime);
 			updateClockFace(timeComponents);
 	
 			if (deltaTime < 1000) {
 				clearInterval(intervalId);
-				startBtn.disabled = false;
 			 }}, 1000);
 			};
 		  }
